@@ -1,0 +1,8 @@
+DB_HOST=127.0.0.1
+DB_USER=root
+DB_PASS=
+DB_NAME=thuoctricontrung
+JWT_SECRET=supersecret123
+NODE_ENV=dev
+NEXT_PUBLIC_BASE_URL=http://localhost:3000
+DATABASE_URL="mysql://root:@localhost:3306/thuoctricontrung"

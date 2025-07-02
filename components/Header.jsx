@@ -1,96 +1,150 @@
-'use client';
+"use client";
+import Link from "next/link";
+import { useState, useEffect, useRef } from "react";
+import { Menu, X } from "lucide-react";
+import Image from "next/image";
+import { Phone, MapPin, Home, FileText, MessagesSquare  } from 'lucide-react';
 
-import React, { useState } from 'react';
-import { Menu, X, PhoneCall, Home, Hammer, Info, Contact, Wrench } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+export default function Header() {
 
-const Header = () => {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const toggleMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
 
-  const navItems = [
-    { name: 'Trang chủ', href: '/', icon: Home },
-    { name: 'Dịch vụ', href: '/dich-vu', icon: Hammer },
-    { name: 'Bài viết', href: '/bai-viet', icon: Info },
-    { name: 'Liên hệ', href: '/lien-he', icon: Contact },
-  ];
+  // Đóng dropdown khi click ra ngoài
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target)
+      ) {
+        setDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
 
   return (
-    <header className="bg-white shadow-md sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-20">
-        {/* Logo */}
-        <a href="/">
-        <div className="flex items-center space-x-2">
-          
-            <Wrench className="w-7 h-7 text-red-700" />
-            <span className="text-2xl font-bold text-red-700">Trung Điện Lạnh</span>
-          
-        </div>
-        </a>
+    <header className="bg-green-700 text-white shadow-md">
+      <div className="max-w-7xl mx-auto flex items-center justify-between px-4 py-3 md:px-8">
+        <Link href="/">
+          <Image
+            src="/images/logo.png"
+            alt="Logo thuốc trị côn trùng"
+            width={160}
+            height={60}
+            priority
+          />
+        </Link>
 
-        {/* Desktop Menu */}
-        <nav className="hidden md:flex space-x-6">
-          {navItems.map(({ name, href }) => (
-            <a
-              key={name}
-              href={href}
-              className="text-gray-700 hover:text-red-700 font-medium transition"
+        {/* Mobile button */}
+        <button
+          className="md:hidden"
+          onClick={() => setMobileOpen(!mobileOpen)}
+        >
+          {mobileOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
+
+        {/* Desktop menu */}
+        <nav className="hidden md:flex space-x-6 items-center">
+           <Link href="/" className="flex items-center space-x-2 hover:text-blue-600">
+              <Home className="w-5 h-5" />
+              <span>Trang chủ</span>
+            </Link>
+
+          <div className="relative" ref={dropdownRef}>
+            <button
+              onClick={() => setDropdownOpen(!dropdownOpen)}
+              className="hover:underline"
             >
-              {name}
-            </a>
-          ))}
+              Danh mục sản phẩm ▾
+            </button>
+            {dropdownOpen && (
+              <div className="absolute bg-white text-black shadow-md mt-2 rounded z-50 min-w-[220px]">
+                <Link href="/danh-muc/thuoc-diet-kien" className="block px-4 py-2 hover:bg-gray-100">
+                  Thuốc diệt kiến
+                </Link>
+                <Link href="/danh-muc/thuoc-diet-muoi" className="block px-4 py-2 hover:bg-gray-100">
+                  Thuốc diệt muỗi
+                </Link>
+                <Link href="/danh-muc/thuoc-diet-gian" className="block px-4 py-2 hover:bg-gray-100">
+                  Thuốc diệt gián
+                </Link>
+                <Link href="/danh-muc/thuoc-diet-moi" className="block px-4 py-2 hover:bg-gray-100">
+                  Thuốc diệt mối
+                </Link>
+                <Link href="/danh-muc/thuoc-diet-ruoi" className="block px-4 py-2 hover:bg-gray-100">
+                  Thuốc diệt ruồi
+                </Link>
+                <Link href="/danh-muc/thuoc-diet-bo-chet" className="block px-4 py-2 hover:bg-gray-100">
+                  Thuốc diệt bọ chét
+                </Link>
+                <Link href="/danh-muc/thuoc-diet-rep-giuong" className="block px-4 py-2 hover:bg-gray-100">
+                  Thuốc diệt rệp giường
+                </Link>
+                <Link href="/danh-muc/thuoc-diet-ve-cho" className="block px-4 py-2 hover:bg-gray-100">
+                  Thuốc diệt ve chó
+                </Link>
+                <Link href="/danh-muc/thuoc-diet-chuot" className="block px-4 py-2 hover:bg-gray-100">
+                  Thuốc diệt chuột
+                </Link>
+              </div>
+            )}
+          </div>
+
+          <Link href="/bai-viet">Bài viết</Link>
+          <Link href="/lien-he">Liên hệ</Link>
         </nav>
-
-        {/* Desktop CTA */}
-        <div className="hidden md:flex items-center space-x-2">
-          <PhoneCall className="text-red-700 w-5 h-5" />
-          <a href="tel:0932383966" className="text-red-700 font-semibold hover:underline">
-            0932 383 966
-          </a>
-        </div>
-
-        {/* Mobile menu toggle */}
-        <div className="md:hidden">
-          <button onClick={toggleMenu} aria-label="Toggle menu">
-            {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
-        </div>
       </div>
 
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div
-            initial={{ y: -100, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: -100, opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="md:hidden bg-white shadow-md rounded-b-2xl px-6 py-4"
-          >
-            <div className="space-y-4">
-              {navItems.map(({ name, href, icon: Icon }) => (
-                <a
-                  key={name}
-                  href={href}
-                  className="flex items-center space-x-2 text-gray-800 hover:text-red-700 text-lg font-medium"
-                >
-                  <Icon className="w-5 h-5" />
-                  <span>{name}</span>
-                </a>
-              ))}
-
-              <div className="mt-4 flex items-center justify-center space-x-2 text-red-700 font-bold">
-                <PhoneCall className="w-5 h-5" />
-                <a href="tel:0932383966" className="hover:underline">
-                  0932 383 966
-                </a>
-              </div>
+      {/* Mobile menu */}
+      {mobileOpen && (
+        <div className="md:hidden bg-green-600 px-4 py-2 space-y-2">
+           <Link href="/" className="flex items-center space-x-2 hover:text-blue-600">
+            <Home className="w-5 h-5" />
+            <span>Trang chủ</span>
+          </Link>
+          <div>
+            <span className="font-semibold">Danh mục sản phẩm</span>
+            <div className="ml-4 space-y-1 mt-2">
+              <Link href="/danh-muc/thuoc-diet-kien" className="block hover:bg-gray-500">
+                  Thuốc diệt kiến
+              </Link>
+              <Link href="/danh-muc/thuoc-diet-muoi" className="block hover:bg-gray-500">
+                Thuốc diệt muỗi
+              </Link>
+              <Link href="/danh-muc/thuoc-diet-gian" className="block hover:bg-gray-500">
+                Thuốc diệt gián
+              </Link>
+              <Link href="/danh-muc/thuoc-diet-moi" className="block hover:bg-gray-500">
+                Thuốc diệt mối
+              </Link>
+              <Link href="/danh-muc/thuoc-diet-ruoi" className="block hover:bg-gray-500">
+                Thuốc diệt ruồi
+              </Link>
+              <Link href="/danh-muc/thuoc-diet-bo-chet" className="block hover:bg-gray-500">
+                Thuốc diệt bọ chét
+              </Link>
+              <Link href="/danh-muc/thuoc-diet-rep-giuong" className="block hover:bg-gray-500">
+                Thuốc diệt rệp giường
+              </Link>
+              <Link href="/danh-muc/thuoc-diet-ve-cho" className="block hover:bg-gray-500">
+                Thuốc diệt ve chó
+              </Link>
+              <Link href="/danh-muc/thuoc-diet-chuot" className="block hover:bg-gray-500">
+                Thuốc diệt chuột
+              </Link>
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          </div>
+          <Link href="/bai-viet" className="block">Bài viết</Link>
+          <Link href="/lien-he" className="block">Liên hệ</Link>
+        </div>
+      )}
     </header>
   );
-};
-
-export default Header;
+}

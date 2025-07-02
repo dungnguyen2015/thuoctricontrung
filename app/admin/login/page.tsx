@@ -8,8 +8,6 @@ export default function AdminLoginPage() {
   const [password, setPassword] = useState('');
   const router = useRouter();
 
-
-
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -17,6 +15,7 @@ export default function AdminLoginPage() {
       method: 'POST',
       body: JSON.stringify({ email, password }),
       headers: { 'Content-Type': 'application/json' },
+      cache: 'no-store',
     });
 
      if (!res.ok) {
@@ -35,7 +34,7 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <form onSubmit={handleLogin} className="max-w-sm mx-auto mt-20 space-y-4">
+    <form onSubmit={handleLogin} className="max-w-md mx-auto mt-20 space-y-4">
       <h1 className="text-2xl font-bold text-center">Đăng nhập Admin</h1>
       <input
         type="email"

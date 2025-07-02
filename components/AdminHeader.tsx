@@ -11,11 +11,11 @@ export default function AdminHeader() {
   };
 
   return (
-    <header className="bg-white shadow p-4 flex justify-between items-center">
+    <header className="min-w-full bg-white shadow p-4 flex justify-between items-center">
       <h2 className="text-lg font-semibold">Quản trị viên</h2>
       <button
         onClick={handleLogout}
-        className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded"
+        className="w-1/6 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded"
       >
         Đăng xuất
       </button>

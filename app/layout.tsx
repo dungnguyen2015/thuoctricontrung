@@ -1,13 +1,15 @@
-import '../styles/globals.css';
+import '@/styles/globals.css';
 import { Metadata } from 'next';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 import LocalBusinessSchema from '@/components/LocalBusinessSchema';
 import BreadcrumbSchema from '@/components/BreadcrumbSchema'
+import FloatingContactButtons from '@/components/FloatingContactButtons';
 
 export const metadata: Metadata = {
-  title: 'Trung Điện Lạnh',
+  title: 'Thuốc Trị Côn Trùng',
   description: 'Dịch vụ điện lạnh uy tín tại TPHCM',
+  icons: {
+    icon: '/images/favicon.ico', // favicon ở thư mục public
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -15,7 +17,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="vi">
       <head>
         <LocalBusinessSchema
-          name="Trung Điện Lạnh"
+          name="Thuốc Trị Côn Trùng"
           description="Dịch vụ sửa chữa, thu mua, lắp đặt điện lạnh uy tín tại TP.HCM"
           url="https://trungdienlanh.com"
           logo="https://trungdienlanh.com/logo.png"
@@ -41,8 +43,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
          <BreadcrumbSchema />
       </head>
-      <body className="bg-white text-gray-900">
+      <body className="bg-white text-black">
         {children}
+        <FloatingContactButtons />
       </body>
     </html>
   );

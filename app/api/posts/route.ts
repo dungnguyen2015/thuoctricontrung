@@ -15,13 +15,13 @@ export async function GET(req: NextRequest) {
 
 
 export async function POST(req: NextRequest) {
-  const { title, slug, content, image_url } = await req.json();
+  const { title, slug, content, image_url, visible, description } = await req.json();
 
   const sql = `
-    INSERT INTO posts (title, slug, content, image_url)
-    VALUES (?, ?, ?, ?)
+    INSERT INTO posts (title, slug, content, image_url, visible, description)
+    VALUES (?, ?, ?, ?, ?, ?)
   `;
-  const result: any = await query(sql, [title, slug, content, image_url]);
+  const result: any = await query(sql, [title, slug, content, image_url, visible, description]);
 
   if (!result || result.affectedRows !== 1) {
     return NextResponse.json({ success: false });

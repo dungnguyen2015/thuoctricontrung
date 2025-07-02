@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import LocalBusinessSchema from '@/components/LocalBusinessSchema';
+import LocalBusinessSchema from './LocalBusinessSchema';
 
 const SEO = ({
   title = 'Trung Điện Lạnh - Dịch vụ điện lạnh uy tín tại TPHCM',

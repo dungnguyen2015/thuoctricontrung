@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import OptimizedImage from './OptimizedImage';
 
 export default function HeroSection() {
   return (
@@ -23,13 +24,12 @@ export default function HeroSection() {
 
           {/* Ảnh minh họa */}
           <div className="relative w-full h-72 md:h-[400px]">
-            <Image
+            <OptimizedImage
               src="/images/thu-mua-do-dien-lanh-cu-tphcm.webp"
               alt="Thu mua điện lạnh Trung Điện Lạnh"
               width={500}
               height={300}
-              style={{ width: '100%', height: 'auto' }} // responsive
-              objectFit="cover"
+              style={{ width: '100%', height: 'auto', objectFit: "cover" }} // responsive
               className="rounded-xl shadow-lg"
               priority
             />

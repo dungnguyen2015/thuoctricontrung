@@ -3,25 +3,26 @@
 @tailwind utilities;
 body {
     font-size: 16px;
+    font-family: 'Inter', sans-serif;
 }
 .h1, h1 {
     font-size: 1.7em;
-   
+
 }
 .h2, h2 {
-    font-size: 1.6em;
+    font-size: 1.5em;
 }
-.h1, h1, .h2, h2, .h3, h3,.h4, h4, .h5, h5 
+.h1, h1, .h2, h2, .h3, h3,.h4, h4, .h5, h5
 {
-	line-height: 1.3;
-	width: 100%;
+    line-height: 1.3;
+    width: 100%;
     margin-top: 0;
     margin-bottom: .5em;
     text-rendering: optimizeSpeed;
 }
 
 .h3, h3 {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
 }
 
 .h4, h4 {
@@ -41,7 +42,7 @@ ul li {
 }
 .prose{
     font-size: 1.15rem;
-   
+
 }
 .prose p{
      line-height: 2;
@@ -50,5 +51,85 @@ li {
     margin-bottom: .6em;
 }
 article a {
-	color: rgb(185, 28, 28, 1);
+        color: #d12212;
 }
+article h2, article h3, article h4, article h5 {font-weight:700}
+article p, article li {
+    font-size: 1.15rem;
+}
+@media only screen and (max-width: 48em) {
+    article p, article li {
+        font-size: 1.05rem;
+    }
+}
+
+@media (max-width: 549px) {
+    .main-article h1{font-size:1.4rem}
+    article h2 {
+        font-size: 1.2em;
+    }
+    article h3 {
+        font-size: 1.15em;
+    }
+
+    article h4 {
+        font-size: 1.10em;
+    }   
+}
+table {
+    width: 100%;
+    margin-bottom: 1em;
+    border-color: #ececec;
+    border-spacing: 0;
+    table-layout: auto; /* Cột tự chia theo nội dung */
+    border-collapse: collapse;
+    word-break: break-word;
+}
+th:first-child, td:first-child {
+    padding-left: 0;
+}
+.uppercase, h6, th, span.widget-title {
+    line-height: 1.05;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+}
+th, td {
+    padding: .5em;
+    text-align: left;
+    border-bottom: 1px solid #ececec;
+    line-height: 1.3;
+    font-size: .9em;
+}
+td:first-child {
+    padding-left: 7px;
+}
+th:first-child, td:first-child {
+    padding-left: 0;
+}
+td {
+    color: #666;
+}
+th, td {
+    padding: .5em;
+    text-align: left;
+    border-bottom: 1px solid #ececec;
+    line-height: 1.3;
+    font-size: .9em;
+}
+th:last-child, td:last-child {
+    padding-right: 0;
+}
+blockquote {
+    position: relative;
+    font-size: 1.2em;
+    margin: 0 0 1.25em;
+    padding: 0 1.25em 0 1.875em;
+    border-left: 2px solid #446084;
+    font-style: italic;
+    color: #333;
+}
+.article-img {
+    display: block; margin-left: auto; margin-right: auto;
+}
+
+.h-full-img {height: 497px;}

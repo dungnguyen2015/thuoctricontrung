@@ -6,28 +6,36 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "start2": "node server.js",
+    "lint": "next lint",
+    "export-data": "node scripts/export-data.js"
   },
   "dependencies": {
     "@prisma/client": "^6.6.0",
     "@tinymce/tinymce-react": "^6.1.0",
     "bcryptjs": "^3.0.2",
+    "express": "^5.1.0",
+    "formidable": "^3.5.4",
     "framer-motion": "^12.7.3",
+    "he": "^1.2.0",
+    "html-react-parser": "^5.2.5",
+    "ioredis": "^5.6.1",
     "jose": "^6.0.10",
     "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.488.0",
-    "mysql2": "^3.14.0",
-    "next": "latest",
+    "mysql2": "3.6.0",
+    "next": "^14.0.3",
     "prisma": "^6.6.0",
-    "react": "latest",
-    "react-dom": "latest"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "uuid": "^11.1.0"
   },
   "devDependencies": {
-    "@types/node": "22.14.1",
-    "@types/react": "19.1.2",
+    "@types/node": "20.14.2",
+    "@types/react": "^18.2.45",
     "autoprefixer": "^10.4.17",
     "postcss": "^8.4.21",
     "tailwindcss": "^3.4.1",
-    "typescript": "^5.3.3"
+    "typescript": "^5.4.5"
   }
 }

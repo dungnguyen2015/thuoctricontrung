@@ -22,25 +22,24 @@ export async function PUT(req: NextRequest, { params }: Props) {
   if (body.image_url) {
     const {image_url} = body;
   }
-  const { title, slug, content } = body;
+  const { title, slug, content, visible, image_url, description } = body;
 
   let sql: string;
   let values: any[];
-  let image_url = null;
   if (image_url) {
       sql = `
         UPDATE posts
-        SET title = ?, slug = ?, content = ?, image_url = ?
+        SET title = ?, slug = ?, content = ?, image_url = ?, visible = ?, description = ?
         WHERE id = ?
       `;
-      values = [title, slug, content, image_url, id];
+      values = [title, slug, content, image_url, visible, description, id];
     } else {
       sql = `
         UPDATE posts
-        SET title = ?, slug = ?, content = ?
+        SET title = ?, slug = ?, content = ?, visible = ?, description = ?
         WHERE id = ?
       `;
-      values = [title, slug, content, id];
+      values = [title, slug, content, visible, description, id];
     }
   
   await query(sql, values);
@@ -60,15 +59,10 @@ export async function DELETE(
   }
 
   try {
-
     const [post]: any = await query('SELECT image_url FROM posts WHERE id = ?', [id]);
-    console.log (post);
     const result = await query('DELETE FROM posts WHERE id = ?', [id]);
-    
-
-    const imagePath = path.join(process.cwd(), 'public', post.image_url.replace(/^\/+/, ''));
+    const imagePath = path.join(process.cwd(), 'uploads', post.image_url.replace(/^\/uploads\//, ''));
     await unlink(imagePath);
-
     return NextResponse.json({ success: true, result });
   } catch (error) {
   

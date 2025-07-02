@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
+import OptimizedImage from '../../components/OptimizedImage';
 
 interface Post {
   id: number;
@@ -18,6 +19,7 @@ interface Props {
 }
 
 const PostList = ({ posts, currentPage }: Props) => {
+
   if (!posts.length) return <p className="text-center text-gray-500 py-10">Không có bài viết nào.</p>;
 
   return (
@@ -29,17 +31,17 @@ const PostList = ({ posts, currentPage }: Props) => {
           key={post.id}
           className="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
         >
-          <Image
+        <OptimizedImage
               src={post.image_url ?? null}
               alt={`Hình ảnh bài viết: ${post.title}`}
-              className="w-full h-56 object-cover"
               width={500}
               height={300}
-              style={{ width: '100%', height: 'auto' }} // responsive
+              style={{ width: '100%', height: 'auto', objectFit: "cover" }} // responsive
+              className={"rounded-xl shadow-lg"}
             />
             <div className="p-4">
               <h3 className="text-xl font-semibold text-red-700">
-                <Link href={`/${post.slug}`} title={post.title}>
+                <Link href={`/${post.slug}/`} title={post.title}>
                   {post.title}
                 </Link>
               </h3>
@@ -50,13 +52,6 @@ const PostList = ({ posts, currentPage }: Props) => {
             </div>
           </div>
         ))}
-      </div>
-
-      {/* Pagination */}
-      <div className="mt-8 flex justify-center">
-        <Link href={`/bai-viet?page=${currentPage + 1}`} className="text-red-700 font-semibold hover:underline">
-          Xem thêm bài viết
-        </Link>
       </div>
     </div>
   );
