@@ -28,7 +28,7 @@ export async function POST(req: Request) {
   return new Response(JSON.stringify({ success: true }), {
     status: 200,
     headers: {
-      'Set-Cookie': `token=${token}; Path=/; HttpOnly; Secure; SameSite=Strict`,
+      'Set-Cookie': `token=${token}; Path=/; HttpOnly; Secure; SameSite=Lax`,
     },
   });
 }
