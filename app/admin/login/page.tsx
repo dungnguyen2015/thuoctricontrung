@@ -16,6 +16,7 @@ export default function AdminLoginPage() {
       body: JSON.stringify({ email, password }),
       headers: { 'Content-Type': 'application/json' },
       cache: 'no-store',
+      credentials: 'include',
     });
 
      if (!res.ok) {
