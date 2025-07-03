@@ -10,7 +10,6 @@ export async function middleware(req: NextRequest) {
 
   const token = req.cookies.get('token')?.value;
   const pathname = req.nextUrl.pathname;
-  const response = NextResponse.next();
   console.log('Middleware running, cookies:', req.cookies.getAll());
   
   if (pathname.startsWith('/admin')) 
@@ -26,7 +25,7 @@ export async function middleware(req: NextRequest) {
       try {
             const secret = new TextEncoder().encode(process.env.JWT_SECRET);
             const { payload } = await jwtVerify(token, secret);
-            return response;
+            return NextResponse.next();
         } catch (err) {
             return NextResponse.redirect(new URL('/admin/login', req.url));
         }
@@ -34,11 +33,11 @@ export async function middleware(req: NextRequest) {
   } else {
 
     if (pathname.match(/\.(ico|jpg|jpeg|png|webp|avif|svg)$/)) {
-        response.headers.set('Cache-Control', 'public, max-age=31536000, immutable')
+        NextResponse.next().headers.set('Cache-Control', 'public, max-age=31536000, immutable')
       }
 
        if (pathname === '/' || pathname.startsWith('/bai-viet/')) {
-        response.headers.set(
+        NextResponse.next().headers.set(
           'Cache-Control',
           'public, s-maxage=3600, stale-while-revalidate=86400'
         );
@@ -48,8 +47,8 @@ export async function middleware(req: NextRequest) {
         '<https://cdn.trungdienlanh.com>; rel=preconnect; crossorigin',
         '<https://api.trungdienlanh.com>; rel=preconnect',
       ];
-      response.headers.set('Link', preconnectHeader.join(', '));
-      return response;
+      NextResponse.next().headers.set('Link', preconnectHeader.join(', '));
+      return NextResponse.next();
   }
   
 }
