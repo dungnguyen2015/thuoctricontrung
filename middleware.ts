@@ -11,6 +11,7 @@ export async function middleware(req: NextRequest) {
   const token = req.cookies.get('token')?.value;
   const pathname = req.nextUrl.pathname;
   const response = NextResponse.next();
+  console.log('Middleware running, cookies:', req.cookies.getAll());
   
   if (pathname.startsWith('/admin')) 
   {
