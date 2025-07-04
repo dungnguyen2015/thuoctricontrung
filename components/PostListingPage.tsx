@@ -18,14 +18,14 @@ const PostListingPage: React.FC<Props> = ({ posts }) => {
   const schemaData = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    "name": "Tin tức - Trung Điện Lạnh",
-    "description": "Danh sách các bài viết chia sẻ dịch vụ điện lạnh và kinh nghiệm sử dụng tủ lạnh, máy lạnh, máy giặt,...",
+    "name": "Tin tức - Thuốc Trị Côn Trùng",
+    "description": "Danh sách các bài viết chia sẻ dịch vụ về thuốc diệt, trị côn trùng như kiến, ruồi, bọ chét, muỗi, gián, chuột, ve chó,...",
     "mainEntity": posts.map((post) => ({
       "@type": "BlogPosting",
       "headline": post.title,
       "author": {
         "@type": "Organization",
-        "name": "Trung Điện Lạnh"
+        "name": "Thuốc Trị Côn Trùng"
       },
       "datePublished": post.created_at,
       "image": post.image_url,

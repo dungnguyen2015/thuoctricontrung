@@ -20,7 +20,7 @@ export default function Pagination({
           href={`?page=${page}`}
           scroll={false}
           className={`px-4 py-2 rounded border ${
-            page === currentPage ? 'bg-red-700 text-white' : 'bg-white text-red-700'
+            page === currentPage ? 'bg-green-700 text-white' : 'bg-green-600 text-red-700'
           } hover:text-red-800 hover:text-white transition`}
         >
           {page}

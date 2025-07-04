@@ -8,7 +8,7 @@ export async function getProductsByCategorySlug(slug: string){
   try {
     const rows: any = await cachedQuery(
       `products_${slug}`,
-      `SELECT p.*, MAX(img.image_url) AS image_url, MAX(pc.discount_price) AS discount_price, MAX(pc.price) AS price FROM products p JOIN category_product cp ON 
+      `SELECT p.*, MIN(c.name) AS category_name, MIN(img.image_url) AS image_url, MIN(pc.discount_price) AS discount_price, MIN(pc.price) AS price FROM products p JOIN category_product cp ON 
       p.id = cp.product_id JOIN categories c ON c.id = cp.category_id JOIN product_images img ON p.id = img.product_id
       JOIN product_capacities pc ON p.id = pc.product_id WHERE p.status = 'active' AND img.is_primary = 1 AND c.slug = ? GROUP BY p.id;`,
       [slug], 
@@ -79,3 +79,52 @@ export async function getProductBySlug(slug: string) {
     return null;
   }
 }
+
+export async function getProducts(page: number, limit = 6){
+
+  const offset = (page - 1) * limit;
+  const sql = `SELECT p.*, MIN(c.name) AS category_name, MIN(img.image_url) AS image_url, MIN(pc.discount_price) AS discount_price, MIN(pc.price) AS price FROM products p JOIN category_product cp ON 
+      p.id = cp.product_id JOIN categories c ON c.id = cp.category_id JOIN product_images img ON p.id = img.product_id
+      JOIN product_capacities pc ON p.id = pc.product_id WHERE p.status = 'active' AND img.is_primary = 1 GROUP BY p.id LIMIT ${limit} OFFSET ${offset}`;
+
+  if (isNaN(limit) || isNaN(offset)) {
+    throw new Error('limit hoặc offset không hợp lệ');
+  }
+  const rows = await query(sql);
+  return rows as any[];
+
+  try {
+    const rows: any = await cachedQuery(
+      `products_total`,
+      sql,
+      [], 
+      0 // cache 0.3 giây
+    );
+    return rows.length > 0 ? rows : null;
+  } catch (error) {
+    console.error("Lỗi truy vấn sản phẩm", error);
+    return null;
+  }
+}
+
+export const getTotalProductCount = cache(
+  async () => {
+    try {
+      const result = await query<{ total: number }[]>(`
+        SELECT COUNT(id) as total 
+        FROM ${table}
+        WHERE status = 'active'
+      `);
+      
+      return result[0]?.total || 0;
+    } catch (error) {
+      console.error('Failed to fetch article count:', error);
+      return 0;
+    }
+  },
+  ['total-products'], // Cache key
+  {
+    tags: ['products'], // Revalidate khi có thay đổi
+    revalidate: 3600 // 1 hour
+  }
+);

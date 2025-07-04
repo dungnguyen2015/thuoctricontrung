@@ -8,14 +8,14 @@ export default function Footer() {
         <div>
           <div className="flex items-center space-x-2 mb-3">
             <Leaf className="w-6 h-6 text-lime-400" />
-            <h2 className="text-xl font-semibold">Thuốc Trị Côn Trùng</h2>
+            <h3 className="text-xl font-semibold">Thuốc Trị Côn Trùng</h3>
           </div>
           <p className="text-sm leading-relaxed text-gray-300">
             Chúng tôi chuyên cung cấp các sản phẩm thuốc diệt muỗi, diệt gián, kiến, mối,... đảm bảo hiệu quả cao, an toàn cho sức khỏe và thân thiện với môi trường. Cam kết hàng chính hãng, giao hàng toàn quốc nhanh chóng.
           </p>
         </div>
         <div>
-          <h4 className="text-lg font-semibold mb-2">Liên kết nhanh</h4>
+          <h3 className="text-lg font-semibold mb-2">Liên kết nhanh</h3>
           <ul className="space-y-1 list-none">
             <li>
                <Link href="/" className="flex items-center space-x-2 hover:text-blue-600">
@@ -38,7 +38,7 @@ export default function Footer() {
           </ul>
         </div>
         <div>
-          <h4 className="text-lg font-semibold mb-2">Thông tin liên hệ</h4>
+          <h3 className="text-lg font-semibold mb-2">Thông tin liên hệ</h3>
           <div className="flex items-center space-x-3 mt-3">
             <Phone className="w-5 h-5 text-white-600" />
             <span>0932.38.39.66</span>

@@ -9,7 +9,7 @@ const FloatingContactButtons = () => {
         href="https://zalo.me/0932383966"
         target="_blank"
         rel="noopener noreferrer"
-        className="bg-blue-500 hover:bg-blue-600 text-white shadow-lg rounded-full p-4 transition-transform hover:scale-110 animate-bounce-slow"
+        className="bg-green-700 hover:bg-blue-600 text-white shadow-lg rounded-full p-4 transition-transform hover:scale-110 animate-bounce-slow"
         title="Nhắn Zalo"
       >
         <MessageCircle className="w-6 h-6" />

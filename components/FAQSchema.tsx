@@ -19,7 +19,7 @@ const FAQSchema: React.FC<PostSchemaProps> = ({
     "name": `Dịch vụ ${question} có nhanh không?`,
     "acceptedAnswer": {
       "@type": "Answer",
-      "text": `Trung Điện Lạnh hỗ trợ ${answer} trong ngày, đến tận nơi, thanh toán ngay.`
+      "text": `Thuốc Trị Côn Trùng hỗ trợ ${answer} trong ngày, đến tận nơi, thanh toán ngay.`
     }
     }]
   };

@@ -46,6 +46,7 @@ export default function Header() {
         <button
           className="md:hidden"
           onClick={() => setMobileOpen(!mobileOpen)}
+          aria-label={mobileOpen ? "Đóng menu" : "Mở menu"}
         >
           {mobileOpen ? <X size={24} /> : <Menu size={24} />}
         </button>

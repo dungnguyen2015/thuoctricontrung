@@ -1,41 +1,56 @@
+
+'use client';
+import { motion } from "framer-motion";
 import Image from 'next/image';
 import OptimizedImage from './OptimizedImage';
 
 export default function HeroSection() {
   return (
-    <>
-      <section className="bg-gradient-to-r from-sky-100 to-red-50 py-16 px-4 md:px-10 lg:px-24">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 items-center gap-10">
-          {/* Nội dung bên trái */}
-          <div>
-            <h1 className="text-4xl md:text-5xl font-bold leading-tight text-gray-900 mb-6">
-              Trung Điện Lạnh – <span className="text-red-600">Thu Mua Điện Lạnh Cũ</span> Giá Cao
-            </h1>
-            <p className="text-lg text-gray-700 mb-6">
-              Chúng tôi chuyên thu mua <strong>tủ lạnh, máy giặt, máy lạnh cũ</strong> tại TP.HCM với giá cạnh tranh, dịch vụ tận nơi, hỗ trợ 24/7.
-            </p>
-            <a
-              href="tel:0932383966"
-              className="inline-block bg-red-600 text-white text-lg font-semibold px-6 py-3 rounded-xl shadow hover:bg-red-700 transition"
-            >
-              Gọi Ngay: 0932383966
-            </a>
-          </div>
+    <section className="w-full px-4 py-12 bg-white">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+        
+        {/* Cột giới thiệu với hiệu ứng trượt vào */}
+        <motion.div
+          initial={{ x: -100, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
+          <h1 className="text-3xl md:text-4xl font-bold text-green-700 mb-4">
+            Thuốc trị côn trùng hiệu quả - An toàn - Tiết kiệm
+          </h1>
+          <p className="text-gray-700 text-base md:text-lg mb-6">
+            Chào mừng bạn đến với trang web chuyên cung cấp các sản phẩm thuốc diệt côn trùng chất lượng cao.
+            Chúng tôi cam kết mang đến giải pháp an toàn, hiệu quả cho mọi gia đình và doanh nghiệp.
+          </p>
+          
+          <motion.a
+            href="/san-pham/"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="inline-block bg-green-600 text-white px-6 py-3 rounded-lg shadow hover:bg-green-700 transition"
+          >
+            Xem sản phẩm
+          </motion.a>
+        </motion.div>
 
-          {/* Ảnh minh họa */}
-          <div className="relative w-full h-72 md:h-[400px]">
-            <OptimizedImage
-              src="/images/thu-mua-do-dien-lanh-cu-tphcm.webp"
-              alt="Thu mua điện lạnh Trung Điện Lạnh"
-              width={500}
-              height={300}
-              style={{ width: '100%', height: 'auto', objectFit: "cover" }} // responsive
-              className="rounded-xl shadow-lg"
-              priority
-            />
-          </div>
-        </div>
-      </section>
-      </>
+        {/* Cột hình ảnh với hiệu ứng mờ + scale */}
+        <motion.div
+          initial={{ x: 100, opacity: 0, scale: 0.95 }}
+          animate={{ x: 0, opacity: 1, scale: 1 }}
+          transition={{ duration: 1, ease: "easeOut" }}
+        >
+          <OptimizedImage
+            src="/images/banner.webp"
+            alt="Banner thuốc diệt côn trùng"
+            width={600}
+            height={400}
+            style={{ width: '100%', height: 'auto', objectFit: "contain" }}
+            className="rounded-xl shadow-lg"
+            priority
+          />
+        </motion.div>
+
+      </div>
+    </section>
   );
 }

@@ -11,7 +11,7 @@ export default function BreadcrumbSchema() {
     if (!pathname) return
 
     const pathParts = pathname.split('/').filter(part => part)
-    const baseUrl = 'https://trungdienlanh.vn'
+    const baseUrl = 'https://thuoctricontrung.com'
 
     const crumbs = pathParts.map((part, index) => {
       const name = decodeURIComponent(part).replace(/-/g, ' ')

@@ -18,12 +18,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <LocalBusinessSchema
           name="Thuốc Trị Côn Trùng"
-          description="Dịch vụ sửa chữa, thu mua, lắp đặt điện lạnh uy tín tại TP.HCM"
-          url="https://trungdienlanh.com"
-          logo="https://trungdienlanh.com/logo.png"
-          image="https://trungdienlanh.com/banner.jpg"
+          description="Dịch vụ cung cấp các sản phẩm thuốc diệt côn trùng chất lượng cao"
+          url="https://thuoctricontrung.com"
+          logo="https://thuoctricontrung.com/images/logo.png"
+          image="https://thuoctricontrung.com/images/banner.webp"
           telephone="+84932383966"
-          email="trungdienlanh@gmail.com"
+          email="thuoctricontrung@gmail.com"
           address={{
             streetAddress: '64 Quang Trung, Tăng Nhơn Phú B, Tp Thủ Đức',
             addressLocality: 'Phường Tăng Nhơn Phú B',

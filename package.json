@@ -16,7 +16,7 @@
     "bcryptjs": "^3.0.2",
     "express": "^5.1.0",
     "formidable": "^3.5.4",
-    "framer-motion": "^12.7.3",
+    "framer-motion": "^12.23.0",
     "he": "^1.2.0",
     "html-react-parser": "^5.2.5",
     "ioredis": "^5.6.1",

@@ -13,22 +13,57 @@ type Props = {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }
 
-
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  
   const { slug } = await params;
-  const category = await getCategoryBySlug(slug);
+  const products = await getProductsByCategorySlug(slug); // Giả sử là array giống như bạn gửi
 
-  if (!category) {
+  if (!products) {
     return {
       title: 'Không tìm thấy sản phẩm',
       description: 'Sản phẩm không tồn tại',
     };
   }
 
-  return {
-    title: category.name,
-    description: category.name,
+  const baseUrl = 'https://thuoccontrung.com';
+
+  const itemListSchema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Danh sách sản phẩm",
+    "itemListOrder": "https://schema.org/ItemListOrderAscending",
+    "numberOfItems": products.length,
+    "itemListElement": products.map((p, i) => ({
+      "@type": "ListItem",
+      "position": i + 1,
+      "url": `${baseUrl}/san-pham/${p.slug}`
+    }))
   };
+
+  const productSchemas = products.map((p) => ({
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": p.name,
+    "image": [`${baseUrl}${p.image_url}`],
+    "description": p.description,
+    "url": `${baseUrl}/san-pham/${p.slug}`,
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "VND",
+      "price": Number(p.discount_price) > 0 ? p.discount_price : p.price,
+      "availability": "https://schema.org/InStock",
+      "itemCondition": "https://schema.org/NewCondition"
+    }
+  }));
+
+  return {
+    title: `${products[0].category_name}`,
+    description: `Tổng hợp các sản phẩm ${products[0].category_name} hiệu quả cao, an toàn cho gia đình.`,
+    other: {
+      "application/ld+json": JSON.stringify([itemListSchema, ...productSchemas])
+    }
+  };
+
 }  
 
 export default async function DanhMucPage({ params }: Props) {
@@ -47,7 +82,7 @@ export default async function DanhMucPage({ params }: Props) {
       <Header />
 
       <section className="py-12 px-6">
-        <h1 className="text-3xl font-bold text-center mb-10">Thuốc diệt kiến</h1>
+        <h1 className="text-3xl font-bold text-center mb-10">{products[0].category_name}</h1>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 max-w-6xl mx-auto">
           {products.map((product, index) => (
             <div key={index} className="border rounded-xl overflow-hidden shadow hover:shadow-lg transition bg-white">

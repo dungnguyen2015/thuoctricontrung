@@ -7,6 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { FlaskConical, Package, User2, BadgeDollarSign } from "lucide-react";
 
+
 export default function HomePage() {
   return (
     <main className="min-h-screen bg-white text-gray-800">
@@ -14,18 +15,8 @@ export default function HomePage() {
       <Header />
 
       {/* Banner */}
-      <section className="relative w-full">
-        <OptimizedImage
-            src="/images/banner.webp"
-            alt="Banner thuốc diệt côn trùng"
-            width={500}
-            height={300}
-            style={{ width: '100%', height: 'auto', objectFit: "cover" }} // responsive
-            className="shadow-lg"
-            priority
-          />
-      </section>
-
+       <HeroSection />
+       
       {/* Lý do chọn chúng tôi */}
       <section className="py-12 px-6 bg-gray-50">
         <h3 className="text-2xl font-bold text-center mb-12">Tại sao chọn chúng tôi?</h3>
@@ -81,7 +72,7 @@ function CategoryCard({ title, href, image }) {
   return (
     <Link href={href} className="block border rounded-2xl overflow-hidden shadow hover:shadow-lg transition">
       <div className="relative h-48 w-full">
-        <Image src={image} alt={title} layout="fill" objectFit="cover" />
+        <Image src={image} alt={`${title} hiệu quả nhanh chóng`} layout="fill" objectFit="cover" />
       </div>
       <div className="p-4 text-center font-semibold">{title}</div>
     </Link>
