@@ -99,7 +99,7 @@ export default async function DanhMucPage({ params }: Props) {
               <div className="p-4">
                 <Link href={`/san-pham/${product.slug}`}><h2 className="text-lg font-bold mb-1">{product.name}</h2></Link>
                 <p className="text-sm text-gray-600 mb-2">{product.description}</p>
-                <span className="text-green-600 font-semibold">{(product.discount_price > 0 ? product.discount_price : product.price).toLocaleString('vi-VN')}₫</span>
+                <span className="text-green-800 font-semibold">{(product.discount_price > 0 ? product.discount_price : product.price).toLocaleString('vi-VN')}₫</span>
               </div>
             </div>
           ))}

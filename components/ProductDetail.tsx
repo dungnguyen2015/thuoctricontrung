@@ -124,7 +124,7 @@ export default function ProductDetail({ product }: { product?: any }) {
               </div>
               
               <div className="border-t border-gray-200 pt-4">
-                <h3 className="font-bold text-gray-900 mb-3">Thành phần chính:</h3>
+                <h2 className="font-bold text-gray-900 mb-3">Thành phần chính:</h2>
                 <ul className="space-y-2">
                     {product.ingredients.map((ing: string, idx: number) => (
                       <li className="flex items-start">
@@ -160,15 +160,17 @@ export default function ProductDetail({ product }: { product?: any }) {
               
               <div className="mt-6 flex items-center">
                 <div className="mr-4">
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Số lượng:</label>
+                  <label htmlFor="quantity-input" className="block text-sm font-medium text-gray-700 mb-1">Số lượng:</label>
                   <div className="flex border border-gray-300 rounded-lg">
                     <button 
+                      type="button"
                       className="px-3 py-2 text-gray-600 hover:bg-gray-100 transition-colors"
                       onClick={decreaseQuantity}
                     >
                       -
                     </button>
                     <input 
+                      id="quantity-input"
                       type="number" 
                       min="1" 
                       value={quantity}
@@ -176,6 +178,7 @@ export default function ProductDetail({ product }: { product?: any }) {
                       className="w-12 text-center border-x border-gray-300 py-2"
                     />
                     <button 
+                      type="button"
                       className="px-3 py-2 text-gray-600 hover:bg-gray-100 transition-colors"
                       onClick={increaseQuantity}
                     >
