@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
 
-  const baseUrl = "https://thuoccontrung.com";
+  const baseUrl = "https://thuoctricontrung.com";
   const productUrl = `${baseUrl}/san-pham/${product.slug}`;
   const imageUrl = product.image_url_first.startsWith("http")
     ? product.image_url_first
@@ -54,11 +54,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       priceCurrency: "VND",
       price: price,
       itemCondition: "https://schema.org/NewCondition",
-      availability:
-        "https://schema.org/" +
-        (Object.values(product.capacities).some((c) => c.in_stock)
-          ? "InStock"
-          : "OutOfStock"),
+      availability: "https://schema.org/InStock",
     },
   };
 

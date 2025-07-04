@@ -37,7 +37,7 @@ export async function generateMetadata({
   }
 
   const products = await getProducts(currentPage, PAGE_SIZE); // Giả sử là array giống như bạn gửi
-  const baseUrl = 'https://thuoccontrung.com';
+  const baseUrl = 'https://thuoctricontrung.com';
 
   const itemListSchema = {
     "@context": "https://schema.org",
