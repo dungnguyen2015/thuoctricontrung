@@ -19,7 +19,7 @@ export default function HomePage() {
        
       {/* Lý do chọn chúng tôi */}
       <section className="py-12 px-6 bg-gray-50">
-        <h3 className="text-2xl font-bold text-center mb-12">Tại sao chọn chúng tôi?</h3>
+        <h2 className="text-2xl font-bold text-center mb-12">Tại sao chọn chúng tôi?</h2>
         <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
           <div>
             <FlaskConical className="mx-auto text-black w-14 h-14" />

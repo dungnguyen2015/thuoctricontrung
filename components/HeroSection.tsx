@@ -27,7 +27,7 @@ export default function HeroSection() {
             href="/san-pham/"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="inline-block bg-green-600 text-white px-6 py-3 rounded-lg shadow hover:bg-green-700 transition"
+            className="inline-block bg-green-800 text-white px-6 py-3 rounded-lg shadow hover:bg-green-700 transition"
           >
             Xem sản phẩm
           </motion.a>
