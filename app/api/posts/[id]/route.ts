@@ -59,10 +59,10 @@ export async function DELETE(
   }
 
   try {
-    const [post]: any = await query('SELECT image_url FROM posts WHERE id = ?', [id]);
+    //const [post]: any = await query('SELECT image_url FROM posts WHERE id = ?', [id]);
     const result = await query('DELETE FROM posts WHERE id = ?', [id]);
-    const imagePath = path.join(process.cwd(), 'uploads', post.image_url.replace(/^\/uploads\//, ''));
-    await unlink(imagePath);
+    //const imagePath = path.join(process.cwd(), 'uploads', post.image_url.replace(/^\/uploads\//, ''));
+    //await unlink(imagePath);
     return NextResponse.json({ success: true, result });
   } catch (error) {
   
