@@ -27,5 +27,5 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ success: false });
   }
 
-  return NextResponse.json({ success: true, message: 'Created', id: result.insertId });
+  return NextResponse.json({ success: true, message: 'Created', id: result.insertId.toString() });
 }
