@@ -35,7 +35,8 @@ export default function PostForm({ post }: { post?: any }) {
   const endpoint = post ? `/api/posts/${post.id}` : '/api/posts';
   const res = await fetch(endpoint, {
     method,
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' },
+    cache: 'no-store',
     body: JSON.stringify(payload),
   });
 

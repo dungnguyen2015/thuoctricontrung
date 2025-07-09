@@ -17,7 +17,7 @@ export default function ProductTable() {
   });
 
  useEffect(() => {
-  fetch(`/api/admin/posts?page=${page}&limit=${pagination.limit}`)
+  fetch(`/api/admin/posts?page=${page}&limit=${pagination.limit}`, {cache: 'no-store'})
     .then(res => res.json())
     .then(data => {
       setPosts(data.data);
