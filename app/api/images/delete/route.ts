@@ -1,7 +1,32 @@
+import { v2 as cloudinary } from 'cloudinary';
 import { unlink } from 'fs/promises';
 import path from 'path';
 import { db } from '@/lib/db';
 import { NextResponse } from 'next/server';
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_NAME!,
+  api_key: process.env.CLOUDINARY_KEY!,
+  api_secret: process.env.CLOUDINARY_SECRET!,
+});
+
+function extractPublicIdFromUrl(url: string): string {
+  const parts = url.split('/');
+  const fileName = parts.pop() || '';
+  const publicId = fileName.split('.')[0]; // bỏ phần đuôi .jpg/.webp
+
+  const folderParts = parts.slice(parts.indexOf('upload') + 1); // sau 'upload'
+  return `${folderParts.join('/')}/${publicId}`;
+}
+
+function isCloudinaryUrl(url: string): boolean {
+  try {
+    const parsed = new URL(url);
+    return parsed.hostname.endsWith('res.cloudinary.com');
+  } catch (e) {
+    return false; // URL không hợp lệ
+  }
+}
 
 export async function POST(req: Request) {
   const body = await req.json();
@@ -12,11 +37,19 @@ export async function POST(req: Request) {
     return NextResponse.json({ success: false, error: 'Thiếu thông tin ảnh' }, { status: 400 });
   }
 
-  const filePath = path.join(process.cwd(), 'uploads', filename.replace(/^\/uploads\//, ''));
-  
   try {
-    await unlink(filePath);
 
+    if (isCloudinaryUrl(filename)) {
+      const publicId = extractPublicIdFromUrl(filename);
+      await cloudinary.uploader.destroy(publicId);
+
+    } else {
+
+      const filePath = path.join(process.cwd(), 'uploads', filename.replace(/^\/uploads\//, ''));
+      await unlink(filePath);
+
+    }
+    
     if (slug) {
       await db.execute('DELETE FROM images WHERE slug = ?', [slug]);
     }

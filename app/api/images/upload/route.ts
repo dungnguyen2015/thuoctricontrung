@@ -46,8 +46,9 @@ export async function POST(req: Request) {
           });
 
           const slug = uploadResult.secure_url;
+          const public_id = uploadResult.public_id;
 
-          await db.execute('INSERT INTO images (slug, alt) VALUES (?, ?)', [slug, alt]);
+          await db.execute('INSERT INTO images (slug, alt, public_id) VALUES (?, ?, ?)', [slug, alt, public_id]);
 
           return NextResponse.json({ success: true, slug });
       } catch (error) {
