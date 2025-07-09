@@ -14,7 +14,6 @@ export default function ImageManagerPage() {
     totalPages: 1,
   });
 
-  console.log (pagination);
   const fetchImages = async () => {
     const res = await fetch(`/api/images/list?page=${page}&limit=${pagination.limit}`);
     const data = await res.json();

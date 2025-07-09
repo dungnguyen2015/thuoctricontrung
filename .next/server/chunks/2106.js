@@ -1,0 +1,1 @@
+"use strict";exports.id=2106,exports.ids=[2106],exports.modules={82106:(t,r,e)=>{e.r(r),e.d(r,{default:()=>s});let s=(0,e(68570).createProxy)(String.raw`D:\VPS-Dung\thuoctricontrung\app\admin\products\ProductListClient.tsx#default`)}};
