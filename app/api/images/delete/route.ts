@@ -11,12 +11,27 @@ cloudinary.config({
 });
 
 function extractPublicIdFromUrl(url: string): string {
-  const parts = url.split('/');
-  const fileName = parts.pop() || '';
-  const publicId = fileName.split('.')[0]; // bỏ phần đuôi .jpg/.webp
+  try {
+    const parsedUrl = new URL(url);
+    const parts = parsedUrl.pathname.split('/');
 
-  const folderParts = parts.slice(parts.indexOf('upload') + 1); // sau 'upload'
-  return `${folderParts.join('/')}/${publicId}`;
+    const uploadIndex = parts.indexOf('upload');
+    if (uploadIndex === -1) return '';
+
+    const publicParts = parts.slice(uploadIndex + 1); // sau 'upload'
+
+    // Nếu phần đầu là version vxxxxxx thì loại bỏ
+    if (publicParts[0].startsWith('v') && /^\d+$/.test(publicParts[0].slice(1))) {
+      publicParts.shift();
+    }
+
+    const fileName = publicParts.pop() || '';
+    const fileBase = fileName.split('.').slice(0, -1).join('.'); // bỏ đuôi .webp, .jpg
+
+    return [...publicParts, fileBase].join('/');
+  } catch (e) {
+    return '';
+  }
 }
 
 function isCloudinaryUrl(url: string): boolean {
