@@ -15,17 +15,32 @@ export async function GET(req: NextRequest) {
 
 
 export async function POST(req: NextRequest) {
-  const { title, slug, content, image_url, visible, description } = await req.json();
+  try {
+    const formData = await req.formData();
 
-  const sql = `
-    INSERT INTO posts (title, slug, content, image_url, visible, description)
-    VALUES (?, ?, ?, ?, ?, ?)
-  `;
-  const result: any = await query(sql, [title, slug, content, image_url, visible, description]);
+    const title = formData.get('title') as string;
+    const slug = formData.get('slug') as string;
+    const content = formData.get('content') as string;
+    const image_url = formData.get('image_url') as string;
+    const visible = parseInt(formData.get('visible') as string);
+    const description = formData.get('description') as string;
 
-  if (!result || result.affectedRows !== 1) {
-    return NextResponse.json({ success: false });
+    if (!title || !slug || !content || !image_url || isNaN(visible) || !description) {
+      return NextResponse.json({ success: false, error: 'Thiếu dữ liệu' }, { status: 400 });
+    }
+
+    const sql = `
+      INSERT INTO posts (title, slug, content, image_url, visible, description)
+      VALUES (?, ?, ?, ?, ?, ?)
+    `;
+    const result: any = await query(sql, [title, slug, content, image_url, visible, description]);
+
+    if (!result || result.affectedRows !== 1) {
+      return NextResponse.json({ success: false }, { status: 500 });
+    }
+
+    return NextResponse.json({ success: true, message: 'Created', id: result.insertId.toString() });
+  } catch (error: any) {
+    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
   }
-
-  return NextResponse.json({ success: true, message: 'Created', id: result.insertId.toString() });
 }
