@@ -10,7 +10,6 @@ const TinyEditor = dynamic(() => import('@/app/admin/components/TinyEditor'), {
   ssr: false,
 });
 
-
 export default function PostForm({ post }: { post?: any }) {
   const editorRef = useRef<any>(null);
   const [title, setTitle] = useState(post?.title || '');
@@ -24,36 +23,39 @@ export default function PostForm({ post }: { post?: any }) {
   const method = post ? 'PUT' : 'POST';
 
   const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
 
-  e.preventDefault();
-  let payload: any = { title, slug, content, visible, description };
- 
-  if (image_url != "") {
-    payload.image_url = image_url;
-  }
-  
-  const endpoint = post ? `/api/posts/${post.id}` : '/api/posts';
-  const res = await fetch(endpoint, {
-    method,
-    headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' },
-    cache: 'no-store',
-    body: JSON.stringify(payload),
-  });
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('slug', slug);
+    formData.append('content', content);
+    formData.append('visible', visible.toString());
+    formData.append('description', description);
 
-  if (!res.ok) {
-        const errorText = await res.text();
-        alert(errorText || 'Thêm bài viết lỗi!');
-        return;
-      }
+    if (image_url) {
+      formData.append('image_url', image_url);
+    }
+
+    const endpoint = post ? `/api/posts/${post.id}` : '/api/posts';
+    const res = await fetch(endpoint, {
+      method,
+      body: formData,
+    });
+
+    if (!res.ok) {
+      const errorText = await res.text();
+      alert(errorText || 'Thêm bài viết lỗi!');
+      return;
+    }
 
     const data = await res.json();
 
-    if (data.success) {    
+    if (data.success) {
       router.push('/admin/posts');
     } else {
       alert('Thêm bài viết lỗi!');
     }
-};
+  };
 
   const getColorClass = () => {
     if (visible === 1) return 'bg-green-100 text-green-800 border-green-400';
@@ -103,37 +105,43 @@ export default function PostForm({ post }: { post?: any }) {
       <div className="py-2">
         <label className="block text-sm font-medium text-gray-700">Ẩn / Hiện</label>
         <select
-        value={visible}
-        onChange={handleChange}
-        className={`border rounded px-3 py-2 transition-colors duration-200 ${getColorClass()}`}
-      >
-        <option value={0}>Ẩn</option>
-        <option value={1}>Hiện</option>
-        <option value={2}>Đang chờ</option>
-      </select>
+          value={visible}
+          onChange={handleChange}
+          className={`border rounded px-3 py-2 transition-colors duration-200 ${getColorClass()}`}
+        >
+          <option value={0}>Ẩn</option>
+          <option value={1}>Hiện</option>
+          <option value={2}>Đang chờ</option>
+        </select>
       </div>
-      {image_url != '' && <div className="my-2"><img src={image_url} width="100px" className="h-16 object-cover" /></div>}
+      {image_url != '' && (
+        <div className="my-2">
+          <img
+            src={image_url}
+            width="100px"
+            className="h-16 object-cover"
+          />
+        </div>
+      )}
       <div>
         <label className="block text-sm font-medium text-gray-700">Ảnh đại diện</label>
         <input
-            type="text"
-            placeholder="Tiêu đề"
-            value={image_url}
-            onChange={e => setImageUrl(e.target.value)}
-            className="w-full border p-2 rounded"
-            required
-          />
-      </div>
-      <div>
-        <label className="block text-sm font-medium text-gray-700">Nội dung</label>
-        <TinyEditor
-          value={content} onChange={(val) => setContent(val)} 
+          type="text"
+          placeholder="Tiêu đề"
+          value={image_url}
+          onChange={e => setImageUrl(e.target.value)}
+          className="w-full border p-2 rounded"
+          required
         />
       </div>
       <div>
-      <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded">
-        {post ? 'Cập nhật' : 'Tạo mới'}
-      </button>
+        <label className="block text-sm font-medium text-gray-700">Nội dung</label>
+        <TinyEditor value={content} onChange={val => setContent(val)} />
+      </div>
+      <div>
+        <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded">
+          {post ? 'Cập nhật' : 'Tạo mới'}
+        </button>
       </div>
     </form>
   );

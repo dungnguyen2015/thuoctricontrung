@@ -54,4 +54,9 @@ export async function middleware(req: NextRequest) {
 
 export const config = {
   matcher: ['/((?!uploads|api|_next|favicon.ico).*)'],
+  api: {
+    bodyParser: {
+      sizeLimit: '20mb', // 👈 hoặc 20mb tùy bạn
+    },
+  },
 };
