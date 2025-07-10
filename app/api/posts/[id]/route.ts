@@ -16,13 +16,15 @@ export async function GET(_: NextRequest, { params }: Props) {
 }
 
 export async function PUT(req: NextRequest, { params }: Props) {
-  const { id } = await params;
-  const body = await req.json();
 
-  if (body.image_url) {
-    const {image_url} = body;
-  }
-  const { title, slug, content, visible, image_url, description } = body;
+  const formData = await req.formData();
+  const title = formData.get('title') as string;
+  const slug = formData.get('slug') as string;
+  const content = formData.get('content') as string;
+  const image_url = formData.get('image_url') as string;
+  const visible = parseInt(formData.get('visible') as string);
+  const description = formData.get('description') as string;
+  const { id } = await params;
 
   let sql: string;
   let values: any[];
