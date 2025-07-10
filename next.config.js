@@ -1,11 +1,11 @@
 const nextConfig = {
   images: {
-    domains: ['cdn.trungdienlanh.com'],
+    domains: ['cdn.thuoctricontrung.com'],
     formats: ['image/avif', 'image/webp'],
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: '**.trungdienlanh.com',
+        hostname: '**.thuoctricontrung.com',
       },
     ],
     loader: 'custom',
