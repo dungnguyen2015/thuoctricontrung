@@ -63,10 +63,10 @@ export async function POST(req: NextRequest) {
 
     // 3. Xóa và cập nhật hình ảnh sản phẩm - SỬA $1 THÀNH ?
     if (product.images.length > 0) {
-      const imageValues = product.images.map(img => [
+      const imageValues = product.images.map((img, index) => [
         product.id,
         img,
-        img === product.primary_image ? 1 : 0
+        index === 0 ? 1 : 0
       ]);
       
       const imageSql = `

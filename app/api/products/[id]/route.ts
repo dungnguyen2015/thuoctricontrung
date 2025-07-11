@@ -75,10 +75,10 @@ export async function PUT(req: NextRequest, { params }: Props) {
     await connection.query('DELETE FROM product_images WHERE product_id = ?', [product.id]);
     
     if (product.images.length > 0) {
-      const imageValues = product.images.map(img => [
+      const imageValues = product.images.map((img, index) => [
         product.id,
         img,
-        img === product.primary_image ? 1 : 0
+        index === 0 ? 1 : 0
       ]);
       
       const imageSql = `
