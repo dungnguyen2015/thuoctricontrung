@@ -153,10 +153,10 @@ export default function Header() {
               </Link>
             </div>
           </div>
-          <Link href="/danh-muc/den-diet-con-trung">
+          <Link href="/danh-muc/den-diet-con-trung" className="block">
                   Đèn diệt côn trùng
           </Link>
-          <Link href="/danh-muc/may-phun-con-trung">
+          <Link href="/danh-muc/may-phun-con-trung" className="block">
                   Máy phun côn trùng
           </Link>
           <Link href="/bai-viet" className="block">Bài viết</Link>
