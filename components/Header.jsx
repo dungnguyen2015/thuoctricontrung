@@ -94,10 +94,18 @@ export default function Header() {
                 <Link href="/danh-muc/thuoc-diet-chuot" className="block px-4 py-2 hover:bg-gray-100">
                   Thuốc diệt chuột
                 </Link>
+                <Link href="/danh-muc/thuoc-khu-trung" className="block px-4 py-2 hover:bg-gray-100">
+                  Thuốc khử trùng
+                </Link>
               </div>
             )}
           </div>
-
+          <Link href="/danh-muc/den-diet-con-trung">
+                  Đèn diệt côn trùng
+          </Link>
+          <Link href="/danh-muc/may-phun-con-trung">
+                  Máy phun côn trùng
+          </Link>
           <Link href="/bai-viet">Bài viết</Link>
           <Link href="/lien-he">Liên hệ</Link>
         </nav>
@@ -140,8 +148,17 @@ export default function Header() {
               <Link href="/danh-muc/thuoc-diet-chuot" className="block hover:bg-gray-500">
                 Thuốc diệt chuột
               </Link>
+              <Link href="/danh-muc/thuoc-khu-trung" className="block hover:bg-gray-500">
+                Thuốc khử trùng
+              </Link>
             </div>
           </div>
+          <Link href="/danh-muc/den-diet-con-trung">
+                  Đèn diệt côn trùng
+          </Link>
+          <Link href="/danh-muc/may-phun-con-trung">
+                  Máy phun côn trùng
+          </Link>
           <Link href="/bai-viet" className="block">Bài viết</Link>
           <Link href="/lien-he" className="block">Liên hệ</Link>
         </div>
